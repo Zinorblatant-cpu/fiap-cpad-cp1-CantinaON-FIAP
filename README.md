@@ -1,425 +1,463 @@
 # CantinaOn
 
-Aplicativo mobile desenvolvido em **React Native com Expo** para simular o fluxo de atendimento de uma cantina escolar/acadêmica. O projeto permite visualizar um cardápio, adicionar itens ao carrinho, calcular o valor total da compra e gerar uma senha de atendimento para retirada no balcão.
+Aplicativo mobile desenvolvido com **React Native + Expo** para simular o fluxo de atendimento de uma cantina academica. O projeto permite criar conta, fazer login, visualizar o cardapio, adicionar itens ao carrinho, concluir o pedido e gerar um codigo de retirada.
 
-Este repositório foi criado como **trabalho acadêmico**, com foco em praticar conceitos de desenvolvimento mobile, componentização, navegação entre telas e gerenciamento de estado local em aplicações React Native.
-
----
-
-## Sumário
-
-- [1. Visão geral do projeto](#1-visão-geral-do-projeto)
-- [2. Objetivo do aplicativo](#2-objetivo-do-aplicativo)
-- [3. Tecnologias utilizadas](#3-tecnologias-utilizadas)
-- [4. Bibliotecas e comandos de instalação](#4-bibliotecas-e-comandos-de-instalação)
-- [5. Estrutura de pastas](#5-estrutura-de-pastas)
-- [6. Como executar o projeto](#6-como-executar-o-projeto)
-- [7. Funcionalidades do app](#7-funcionalidades-do-app)
-- [8. Fluxo de uso do usuário](#8-fluxo-de-uso-do-usuário)
-- [9. Possíveis problemas e soluções](#9-possíveis-problemas-e-soluções)
-- [10. Melhorias futuras sugeridas](#10-melhorias-futuras-sugeridas)
-- [11. Autores e orientador](#11-autores-e-orientador)
-- [12. Licença](#12-licença)
+Este repositorio foi construido como **trabalho academico**, mas com uma preocupacao adicional com organizacao de codigo, persistencia local onde faz sentido, testes automatizados e uma experiencia de uso mais consistente.
 
 ---
 
-## 1. Visão geral do projeto
+## Sumario
 
-O **CantinaOn** é um aplicativo de pedidos simples voltado ao contexto de cantina. A aplicação foi estruturada com três telas principais:
-
-1. **Tela inicial (Home)**: exibe os produtos disponíveis no cardápio.
-2. **Tela de carrinho (Sale/Carrinho)**: agrupa os itens selecionados e apresenta o total da compra.
-3. **Tela de senha (Password)**: gera uma senha numérica para retirada do pedido.
-
-A navegação é feita com **React Navigation**, enquanto os estados locais são controlados com **React Hooks** (`useState`). As imagens dos produtos são armazenadas localmente na pasta `assets`.
-
----
-
-## 2. Objetivo do aplicativo
-
-O propósito deste projeto é demonstrar, de forma prática, os principais fundamentos de uma aplicação mobile acadêmica:
-
-- criação de interfaces com **React Native**;
-- navegação entre telas;
-- passagem de parâmetros entre rotas;
-- manipulação de listas e agrupamento de dados;
-- cálculo de valores no carrinho;
-- uso de imagens locais no aplicativo;
-- simulação de um fluxo real de compra e retirada de pedido.
-
-Além de servir como entrega de faculdade, o projeto também pode ser utilizado como base para futuras evoluções, como autenticação, integração com banco de dados, API de pagamentos e histórico de pedidos.
+- [1. Visao geral](#1-visao-geral)
+- [2. Objetivo do projeto](#2-objetivo-do-projeto)
+- [3. Funcionalidades atuais](#3-funcionalidades-atuais)
+- [4. Arquitetura e organizacao](#4-arquitetura-e-organizacao)
+- [5. Tecnologias utilizadas](#5-tecnologias-utilizadas)
+- [6. Estrutura de pastas](#6-estrutura-de-pastas)
+- [7. Fluxo de navegacao](#7-fluxo-de-navegacao)
+- [8. Persistencia com AsyncStorage](#8-persistencia-com-asyncstorage)
+- [9. Gerenciamento de estado global com Context API](#9-gerenciamento-de-estado-global-com-context-api)
+- [10. Validacao de formularios](#10-validacao-de-formularios)
+- [11. Testes automatizados](#11-testes-automatizados)
+- [12. Conceito adicional aplicado no projeto](#12-conceito-adicional-aplicado-no-projeto)
+- [13. Como executar o projeto](#13-como-executar-o-projeto)
+- [14. Scripts disponiveis](#14-scripts-disponiveis)
+- [15. Limitacoes atuais](#15-limitacoes-atuais)
+- [16. Melhorias futuras](#16-melhorias-futuras)
+- [17. Autores e orientador](#17-autores-e-orientador)
+- [18. Licenca](#18-licenca)
 
 ---
 
-## 3. Tecnologias utilizadas
+## 1. Visao geral
 
-As principais tecnologias e ferramentas utilizadas neste projeto são:
+O **CantinaOn** evoluiu de um app simples de cardapio para uma aplicacao com fluxo mais completo e mais proxima de um comportamento real de produto mobile.
 
-- **React Native** – desenvolvimento da interface mobile.
-- **Expo** – ambiente e ferramentas para execução do app.
-- **React** – base para construção dos componentes.
-- **React Navigation** – navegação entre telas.
-- **Native Stack Navigator** – gerenciamento de rotas em pilha.
-- **Expo Status Bar** – controle da barra de status.
-- **react-native-safe-area-context** – suporte a áreas seguras em dispositivos.
-- **react-native-screens** – otimização de navegação nativa.
+Atualmente o sistema possui:
 
-### Versões utilizadas no projeto
-
-| Tecnologia / biblioteca | Versão |
-| --- | --- |
-| expo | `~54.0.33` |
-| react | `19.1.0` |
-| react-native | `0.81.5` |
-| @react-navigation/native | `^7.2.0` |
-| @react-navigation/native-stack | `^7.14.7` |
-| expo-status-bar | `~3.0.9` |
-| react-native-safe-area-context | `~5.6.0` |
-| react-native-screens | `~4.16.0` |
+- telas separadas para **login**, **cadastro**, **menu**, **carrinho** e **codigo de retirada**;
+- autenticacao mock em memoria com um usuario padrao e cadastros disponiveis apenas durante a execucao atual;
+- persistencia local de carrinho e ultimo codigo gerado;
+- estado global compartilhado entre as telas;
+- validacao de formularios com feedback visual;
+- testes automatizados para validar regras importantes do app.
 
 ---
 
-## 4. Bibliotecas e comandos de instalação
+## 2. Objetivo do projeto
 
-Se você deseja recriar o ambiente do projeto manualmente, os comandos abaixo representam a instalação das bibliotecas principais.
+O objetivo do projeto e demonstrar, na pratica, conceitos importantes de desenvolvimento mobile com React Native:
 
-### 4.1 Criar o projeto com Expo
+- criacao de interfaces mobile;
+- navegacao entre telas;
+- componentizacao;
+- gerenciamento de estado local e global;
+- persistencia de dados no dispositivo;
+- simulacao de autenticacao com dados em memoria;
+- validacao de formularios;
+- testes automatizados;
+- simulacao de um fluxo completo de pedido em uma cantina.
 
-```bash
-npx create-expo-app CantinaOn
+---
+
+## 3. Funcionalidades atuais
+
+### Autenticacao
+
+- cadastro de usuario com:
+  - nome completo
+  - e-mail
+  - senha
+  - confirmacao de senha
+- usuario mock inicial:
+  - e-mail: `generico@email.com`
+  - senha: `senha12345`
+- login com e-mail e senha
+- cadastro salvo apenas em memoria durante a execucao atual
+- sessao mantida apenas enquanto o app esta aberto
+
+### Cardapio e carrinho
+
+- exibicao do cardapio com produtos fixos
+- adicao de itens ao carrinho
+- badge com quantidade de itens
+- agrupamento de itens repetidos no carrinho
+- remocao de itens
+- limpeza total do carrinho
+- calculo do valor total
+
+### Finalizacao
+
+- geracao de codigo de retirada
+- armazenamento do ultimo codigo gerado
+- retorno para um novo pedido
+
+### UX e interface
+
+- telas visualmente padronizadas
+- feedback visual de erros em formularios
+- estado de carregamento durante a leitura do armazenamento local
+- separacao clara entre fluxo de autenticacao e fluxo de pedido
+
+---
+
+## 4. Arquitetura e organizacao
+
+O projeto segue uma arquitetura simples, porem mais organizada do que a versao inicial.
+
+### Camadas principais
+
+- `pages/`
+  - telas da aplicacao
+- `components/`
+  - componentes reutilizaveis de interface
+- `context/`
+  - estado global da aplicacao
+- `data/`
+  - dados estaticos do cardapio
+- `test-utils/`
+  - funcoes auxiliares para testes
+- `__tests__/`
+  - testes automatizados
+- `__mocks__/`
+  - mocks usados nos testes
+
+### Decisoes arquiteturais
+
+- **Context API** foi usada para centralizar estado global.
+- **AsyncStorage** foi usado para persistencia local do carrinho e do ultimo codigo gerado.
+- autenticacao foi modelada como um mock em memoria para simular um banco local apenas em tempo de execucao.
+- As telas ficaram mais enxutas, delegando logica compartilhada ao contexto.
+- Componentes repetidos foram extraidos para a pasta `components/`.
+
+---
+
+## 5. Tecnologias utilizadas
+
+| Tecnologia | Versao | Finalidade |
+| --- | --- | --- |
+| `expo` | `~54.0.33` | ambiente de execucao |
+| `react` | `19.1.0` | base de componentes |
+| `react-native` | `0.81.5` | interface mobile |
+| `@react-navigation/native` | `^7.2.0` | navegacao |
+| `@react-navigation/native-stack` | `^7.14.7` | rotas em pilha |
+| `@react-native-async-storage/async-storage` | `2.2.0` | persistencia local |
+| `expo-status-bar` | `~3.0.9` | controle da status bar |
+| `react-native-safe-area-context` | `~5.6.0` | areas seguras |
+| `react-native-screens` | `~4.16.0` | integracao nativa de telas |
+| `jest` | `^30.3.0` | motor de testes |
+| `jest-expo` | `~54.0.17` | integracao de testes com Expo |
+| `@testing-library/react-native` | `^13.3.3` | testes de interface |
+| `react-test-renderer` | `19.1.0` | suporte aos testes React |
+
+---
+
+## 6. Estrutura de pastas
+
+```text
+CantinaOn/
+├── __mocks__/
+│   └── @react-native-async-storage/
+│       └── async-storage.js
+├── __tests__/
+│   ├── App.test.js
+│   ├── AppContext.test.js
+│   ├── CartScreen.test.js
+│   ├── LoginScreen.test.js
+│   ├── MenuScreen.test.js
+│   ├── PickupCodeScreen.test.js
+│   └── RegisterScreen.test.js
+├── components/
+│   ├── ActionButton.js
+│   ├── AuthScreenLayout.js
+│   ├── FormInput.js
+│   ├── LoadingScreen.js
+│   └── ScreenHeader.js
+├── context/
+│   └── AppContext.js
+├── data/
+│   └── menuItems.js
+├── pages/
+│   ├── CartScreen.js
+│   ├── LoginScreen.js
+│   ├── MenuScreen.js
+│   ├── PickupCodeScreen.js
+│   └── RegisterScreen.js
+├── test-utils/
+│   └── renderWithAppProvider.js
+├── assets/
+├── App.js
+├── app.json
+├── index.js
+├── package.json
+└── README.md
 ```
 
-### 4.2 Instalar dependências principais
+---
+
+## 7. Fluxo de navegacao
+
+O fluxo principal da aplicacao funciona assim:
+
+1. O app inicia e carrega os dados persistidos do carrinho e do ultimo codigo.
+2. A tela inicial sempre e `Login`.
+3. O usuario pode entrar com o mock padrao ou ir para `Register` e criar uma conta.
+4. O cadastro criado fica disponivel apenas durante a execucao atual.
+5. Depois do login, acessa o `Menu`.
+6. No `Menu`, adiciona produtos ao carrinho.
+7. No `Cart`, revisa, remove itens ou finaliza o pedido.
+8. Ao concluir, recebe um `PickupCode`.
+9. Pode iniciar um novo pedido voltando ao menu.
+
+---
+
+## 8. Persistencia com AsyncStorage
+
+O projeto utiliza **AsyncStorage** para salvar dados localmente no dispositivo.
+
+### Dados persistidos
+
+- itens do carrinho;
+- ultimo codigo de retirada gerado.
+
+### Dados que ficam apenas em memoria
+
+- usuario mock padrao `generico@email.com`;
+- novos usuarios cadastrados durante a execucao atual;
+- sessao do usuario autenticado.
+
+### Beneficios dessa abordagem
+
+- o carrinho pode permanecer salvo entre aberturas;
+- o ultimo codigo gerado continua visivel apos reabrir o app;
+- o projeto separa claramente o que deve ser persistido do que e apenas simulacao de autenticacao;
+- o app ganha um comportamento mais proximo de um sistema real;
+- o projeto pratica um conceito importante de persistencia local em mobile.
+
+---
+
+## 9. Gerenciamento de estado global com Context API
+
+O estado global da aplicacao foi implementado em `context/AppContext.js`.
+
+### Estados compartilhados
+
+- `users`
+- `currentUser`
+- `cartItems`
+- `lastPickupCode`
+- `isHydrated`
+
+### Acoes expostas pelo contexto
+
+- `registerUser`
+- `loginUser`
+- `logoutUser`
+- `addItemToCart`
+- `removeItemFromCart`
+- `clearCart`
+- `completeOrder`
+
+### Vantagens do uso de Context API
+
+- evita passar props manualmente entre varias telas;
+- centraliza regras de negocio;
+- melhora a manutencao;
+- deixa a navegacao independente do estado do carrinho e da autenticacao.
+
+Observacao importante:
+
+- `users` e `currentUser` existem apenas em memoria durante a execucao;
+- `cartItems` e `lastPickupCode` sao hidratados com AsyncStorage;
+- o contexto expoe um usuario mock inicial para demonstracao e testes.
+
+---
+
+## 10. Validacao de formularios
+
+As telas de login e cadastro agora possuem validacao visual de formularios.
+
+### Login
+
+- e-mail obrigatorio
+- senha obrigatoria
+- validacao de formato do e-mail
+- mensagem especifica para credenciais invalidas
+
+### Cadastro
+
+- nome completo obrigatorio
+- e-mail obrigatorio
+- senha obrigatoria
+- confirmacao de senha obrigatoria
+- validacao de formato do e-mail
+- senha com minimo de 6 caracteres
+- confirmacao identica a senha
+- bloqueio de e-mails duplicados
+
+Essa validacao melhora a experiencia do usuario e evita chamadas desnecessarias para a camada de estado.
+
+---
+
+## 11. Testes automatizados
+
+O projeto possui uma camada de testes automatizados com **Jest** e **React Native Testing Library**.
+
+### O que esta sendo testado
+
+- registro das rotas e escolha da rota inicial
+- hidratacao do estado global
+- persistencia de carrinho e codigo de retirada no AsyncStorage
+- usuario mock padrao
+- cadastro de usuario em memoria
+- login e logout em memoria
+- validacao de formularios
+- carrinho global
+- remocao e limpeza de itens
+- finalizacao do pedido
+- exibicao do codigo de retirada
+
+### Arquivos de teste
+
+- `App.test.js`
+- `AppContext.test.js`
+- `LoginScreen.test.js`
+- `RegisterScreen.test.js`
+- `MenuScreen.test.js`
+- `CartScreen.test.js`
+- `PickupCodeScreen.test.js`
+
+### Ultima validacao
 
 ```bash
-npx expo install expo expo-status-bar react-native react-native-safe-area-context react-native-screens
-npm install react @react-navigation/native @react-navigation/native-stack
+npm test -- --runInBand
 ```
 
-### 4.3 Instalar todas as dependências do repositório clonado
+Resultado validado:
 
-Se o projeto já foi clonado, o mais prático é utilizar:
+- **7 suites**
+- **21 testes**
+- **100% aprovados no ultimo ciclo executado**
+
+---
+
+## 12. Conceito adicional aplicado no projeto
+
+Um conceito que nao foi trabalhado em aula, mas que o grupo quis aplicar, foi o de **testes automatizados**.
+
+Nossa ideia foi construir um app que nao fosse apenas visualmente funcional, mas que tambem tivesse **confiabilidade tecnica**. Para isso, os testes sao essenciais, porque ajudam a validar as funcoes mais importantes da aplicacao, identificar erros com rapidez e reduzir o risco de uma alteracao nova quebrar algo que ja estava funcionando antes.
+
+Em outras palavras, os testes foram usados como uma camada de seguranca do projeto. Eles ajudam a:
+
+- verificar se as regras de login e cadastro continuam corretas;
+- confirmar se a persistencia local do carrinho e do codigo esta funcionando;
+- validar o mock de autenticacao e o cadastro em memoria;
+- validar o comportamento do carrinho e da finalizacao do pedido;
+- evitar regressao quando o codigo evolui.
+
+Mesmo nao sendo um topico exigido em aula, optamos por implementar testes porque entendemos que eles fazem parte da construcao de um software realmente funcional, confiavel e mais facil de manter.
+
+---
+
+## 13. Como executar o projeto
+
+### Pre-requisitos
+
+Antes de executar, tenha instalado:
+
+- Node.js
+- npm
+- Expo Go no celular ou emulador Android/iOS
+
+### Instalacao
 
 ```bash
 npm install
 ```
 
-### 4.4 Scripts disponíveis
+### Execucao
+
+```bash
+npm run start
+```
+
+Depois disso, voce pode:
+
+- pressionar `a` para abrir no Android
+- pressionar `i` para abrir no iOS
+- pressionar `w` para abrir na Web
+- ou escanear o QR Code com o Expo Go
+
+---
+
+## 14. Scripts disponiveis
 
 ```bash
 npm run start
 npm run android
 npm run ios
 npm run web
+npm run test
 ```
 
-**Descrição dos scripts:**
+### Descricao
 
-- `npm run start`: inicia o servidor do Expo.
-- `npm run android`: abre o app em um emulador/dispositivo Android.
-- `npm run ios`: abre o app em simulador iOS (somente em macOS).
-- `npm run web`: executa o projeto no navegador.
+- `npm run start`: inicia o projeto com Expo
+- `npm run android`: abre no Android
+- `npm run ios`: abre no iOS
+- `npm run web`: abre na Web
+- `npm run test`: executa os testes automatizados
 
 ---
 
-## 5. Estrutura de pastas
+## 15. Limitacoes atuais
 
-A estrutura atual do projeto é simples e organizada em arquivos de tela na raiz, além da pasta de recursos estáticos.
+Apesar das melhorias, o projeto ainda possui limitacoes importantes:
 
-```text
-CantinaOn/
-├── assets/
-│   ├── adaptive-icon.png
-│   ├── favicon.png
-│   ├── icon.png
-│   ├── splash-icon.png
-│   └── imagens dos produtos (.jpg)
-├── App.js
-├── HomeScreen.js
-├── PasswordScreen.js
-├── shoppingCartScreens.js
-├── index.js
-├── app.json
-├── package.json
-├── package-lock.json
-└── README.md
-```
+- autenticacao apenas local e simulada em memoria
+- senhas mantidas em texto puro durante a execucao
+- sem backend real
+- sem banco de dados remoto
+- sem historico de pedidos
+- sem integracao com pagamento
+- sem controle real de estoque ou fila
 
-### Explicação dos arquivos principais
-
-- **`App.js`**: configura a navegação principal entre as telas do aplicativo.
-- **`HomeScreen.js`**: exibe o cardápio, os produtos e o botão do carrinho.
-- **`shoppingCartScreens.js`**: mostra os itens selecionados, quantidades agrupadas e valor total.
-- **`PasswordScreen.js`**: gera e exibe a senha do pedido.
-- **`index.js`**: registra o componente principal da aplicação com o Expo.
-- **`app.json`**: contém configurações do projeto Expo, ícones e splash screen.
-- **`assets/`**: reúne imagens dos produtos e ícones do app.
-
-### Sugestão de organização futura
-
-Caso o projeto evolua, uma estrutura mais escalável pode ser:
-
-```text
-src/
-├── components/
-├── screens/
-├── navigation/
-├── services/
-├── utils/
-└── assets/
-```
-
-Essa separação facilita manutenção, testes e crescimento da aplicação.
+Essas limitacoes sao aceitaveis para o escopo academico atual, mas seriam pontos obrigatorios de evolucao em um produto real.
 
 ---
 
-## 6. Como executar o projeto
+## 16. Melhorias futuras
 
-Abaixo está o passo a passo completo para rodar o aplicativo localmente.
-
-### 6.1 Pré-requisitos
-
-Antes de começar, tenha instalado em sua máquina:
-
-- **Node.js** (versão LTS recomendada);
-- **npm**;
-- **Expo Go** no celular Android/iOS, caso deseje testar em dispositivo físico;
-- opcionalmente, **Android Studio** ou simulador iOS para emuladores.
-
-### 6.2 Clonar o repositório
-
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd fiap-cpad-cp1-CantinaOn
-```
-
-### 6.3 Instalar as dependências
-
-```bash
-npm install
-```
-
-### 6.4 Iniciar o projeto
-
-```bash
-npm run start
-```
-
-### 6.5 Executar no dispositivo ou emulador
-
-Após iniciar o Expo:
-
-- pressione **`a`** no terminal para abrir no Android;
-- pressione **`i`** para abrir no iOS (em macOS);
-- pressione **`w`** para abrir na Web;
-- ou escaneie o **QR Code** com o aplicativo **Expo Go** no celular.
-
-### 6.6 Fluxo de execução esperado
-
-1. O app abre na tela de cardápio.
-2. O usuário toca em um produto.
-3. Um alerta confirma a adição ao carrinho.
-4. O contador do carrinho é atualizado.
-5. Ao abrir o carrinho, o total é calculado automaticamente.
-6. Ao tocar em **Pagar**, o app gera uma senha para retirada.
+- integracao com backend real
+- hash de senha e autenticacao segura
+- historico de pedidos
+- perfil do usuario
+- edicao de cadastro
+- produtos dinamicos vindos de API
+- estoque em tempo real
+- fila real de retirada
+- testes end-to-end
+- atualizacao do nome interno do projeto de `app-js-sdk54` para `CantinaOn`
 
 ---
 
-## 7. Funcionalidades do app
-
-### 7.1 Tela inicial – Cardápio
-
-Na tela inicial, o usuário visualiza os produtos disponíveis para compra.
-
-**Recursos presentes nessa tela:**
-
-- listagem de itens com imagem, nome e preço;
-- botão de carrinho no topo;
-- badge com quantidade de itens selecionados;
-- alerta para confirmar a adição de produtos ao carrinho.
-
-**Produtos cadastrados atualmente:**
-
-- Paçoca;
-- Pão de batata;
-- Cachorro-quente;
-- Coxinha.
-
-### 7.2 Tela de carrinho
-
-A tela de carrinho apresenta um resumo dos itens escolhidos.
-
-**Recursos presentes nessa tela:**
-
-- agrupamento automático de itens repetidos;
-- exibição da quantidade de cada produto;
-- cálculo do valor total do pedido;
-- botão de pagamento;
-- mensagem de carrinho vazio quando nenhum item foi selecionado.
-
-### 7.3 Tela de senha
-
-Após confirmar a compra, o aplicativo exibe uma senha numérica aleatória.
-
-**Recursos presentes nessa tela:**
-
-- geração de senha aleatória;
-- instrução para aguardar o chamado no balcão;
-- botão para voltar ao menu principal.
-
----
-
-## 8. Fluxo de uso do usuário
-
-O fluxo principal do aplicativo funciona da seguinte forma:
-
-1. **Entrada no app**: o usuário acessa a tela inicial.
-2. **Seleção de produto**: toca em um item do cardápio.
-3. **Confirmação**: escolhe adicionar o item ao carrinho.
-4. **Carrinho**: acessa o carrinho pelo ícone superior.
-5. **Revisão do pedido**: visualiza itens, quantidades e total.
-6. **Pagamento**: toca no botão para prosseguir.
-7. **Senha de retirada**: recebe um número para acompanhamento do pedido.
-8. **Retorno ao menu**: pode voltar à tela inicial para um novo pedido.
-
----
-
-## 9. Possíveis problemas e soluções
-
-Abaixo estão alguns problemas comuns que podem ocorrer durante o uso ou desenvolvimento do projeto.
-
-### 9.1 Erro de navegação entre telas
-
-**Problema:** a tela não abre ou o app apresenta erro ao navegar.
-
-**Possíveis causas:**
-
-- nome da rota diferente entre `navigate()` e o `Stack.Screen`;
-- componente importado com nome incorreto;
-- parâmetro esperado não enviado pela rota.
-
-**Solução:**
-
-- verificar se os nomes das rotas estão exatamente iguais;
-- conferir os imports em `App.js`;
-- garantir que `selectedItems` esteja sendo enviado ao abrir o carrinho.
-
-### 9.2 Imagens não aparecem
-
-**Problema:** as imagens dos produtos não são exibidas.
-
-**Possíveis causas:**
-
-- caminho incorreto no `require()`;
-- arquivo movido ou renomeado dentro da pasta `assets`;
-- erro de digitação na extensão da imagem.
-
-**Solução:**
-
-- validar o caminho do arquivo em `HomeScreen.js`;
-- manter os arquivos na pasta `assets`;
-- reiniciar o cache do Expo com:
-
-```bash
-npx expo start -c
-```
-
-### 9.3 Botão de pagamento desabilitado
-
-**Problema:** o botão **Pagar** aparece cinza e não pode ser pressionado.
-
-**Causa:** o carrinho está vazio.
-
-**Solução:**
-
-- adicionar pelo menos um item ao carrinho antes de prosseguir;
-- verificar se o item foi realmente confirmado no alerta da tela inicial.
-
-### 9.4 Alterações não aparecem no app
-
-**Problema:** você alterou o código, mas o aplicativo continua exibindo a versão anterior.
-
-**Solução:**
-
-```bash
-npx expo start -c
-```
-
-Esse comando limpa o cache do Expo e força uma nova leitura dos arquivos.
-
-### 9.5 Dependências com versões incompatíveis
-
-**Problema:** erros após instalar bibliotecas manualmente.
-
-**Solução:**
-
-- preferir `npx expo install` para bibliotecas relacionadas ao ecossistema Expo;
-- apagar `node_modules` e reinstalar, se necessário:
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
----
-
-## 10. Melhorias futuras sugeridas
-
-Como evolução do projeto, podem ser implementadas as seguintes melhorias:
-
-- tela de login ou identificação do usuário;
-- persistência de carrinho;
-- histórico de pedidos;
-- integração com API ou banco de dados;
-- controle real de fila de atendimento;
-- cadastro dinâmico de produtos;
-- cálculo de estoque disponível;
-- melhoria visual com componentes reutilizáveis;
-- separação do projeto em pastas `components`, `screens` e `navigation`.
-
----
-
-## 11. Autores e orientador
-
-Preencha esta seção com os dados do trabalho acadêmico.
+## 17. Autores e orientador
 
 **Autores:**
 
-- RM 565437 - Leonardo Lopes Oliveira 
+- RM 565437 - Leonardo Lopes Oliveira
 - RM 563119 - Lucas
 - RM 563462 - Cadu
-- RM 564878 - Felipe krzyzanovski
+- RM 564878 - Felipe Krzyzanovski
 
-**Orientador(a):**
+**Orientador:**
 
 - Hercules Lima Ramos
 
-**Instituição:**
-
-- Faculdade / Universidade
-- Curso
-- Disciplina
-- Semestre / Turma
-
 ---
 
-## 12. Licença
+## 18. Licenca
 
-Este projeto possui finalidade **exclusivamente acadêmica**.
+Este projeto possui finalidade **exclusivamente academica**.
 
-Seu uso está destinado a estudos, demonstrações e avaliações universitárias. Caso necessário, a instituição ou o grupo pode complementar esta seção com uma licença específica, mas no estado atual o projeto deve ser tratado como **material acadêmico**.
-
----
-
-## Considerações finais
-
-O **CantinaOn** representa uma aplicação mobile simples, mas suficiente para demonstrar conceitos importantes de desenvolvimento com React Native e Expo. A documentação deste repositório foi estruturada para facilitar a compreensão do projeto, sua execução local e a apresentação acadêmica do trabalho.
-
-Se desejar, este README também pode ser expandido no futuro com:
-
-- capturas de tela do aplicativo;
-- diagrama de navegação;
-- wireframes;
-- requisitos funcionais e não funcionais;
-- backlog do projeto;
-- roadmap de melhorias.
+Seu uso esta voltado para estudo, demonstracao e avaliacao universitaria.
