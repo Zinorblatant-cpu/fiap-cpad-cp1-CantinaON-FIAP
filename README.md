@@ -15,17 +15,18 @@ Este repositorio foi construido como **trabalho academico**, mas com uma preocup
 - [5. Tecnologias utilizadas](#5-tecnologias-utilizadas)
 - [6. Estrutura de pastas](#6-estrutura-de-pastas)
 - [7. Fluxo de navegacao](#7-fluxo-de-navegacao)
-- [8. Persistencia com AsyncStorage](#8-persistencia-com-asyncstorage)
-- [9. Gerenciamento de estado global com Context API](#9-gerenciamento-de-estado-global-com-context-api)
-- [10. Validacao de formularios](#10-validacao-de-formularios)
-- [11. Testes automatizados](#11-testes-automatizados)
-- [12. Conceito adicional aplicado no projeto](#12-conceito-adicional-aplicado-no-projeto)
-- [13. Como executar o projeto](#13-como-executar-o-projeto)
-- [14. Scripts disponiveis](#14-scripts-disponiveis)
-- [15. Limitacoes atuais](#15-limitacoes-atuais)
-- [16. Melhorias futuras](#16-melhorias-futuras)
-- [17. Autores e orientador](#17-autores-e-orientador)
-- [18. Licenca](#18-licenca)
+- [8. Galeria das telas](#8-galeria-das-telas)
+- [9. Persistencia com AsyncStorage](#9-persistencia-com-asyncstorage)
+- [10. Gerenciamento de estado global com Context API](#10-gerenciamento-de-estado-global-com-context-api)
+- [11. Validacao de formularios](#11-validacao-de-formularios)
+- [12. Testes automatizados](#12-testes-automatizados)
+- [13. Conceito adicional aplicado no projeto](#13-conceito-adicional-aplicado-no-projeto)
+- [14. Como executar o projeto](#14-como-executar-o-projeto)
+- [15. Scripts disponiveis](#15-scripts-disponiveis)
+- [16. Limitacoes atuais](#16-limitacoes-atuais)
+- [17. Melhorias futuras](#17-melhorias-futuras)
+- [18. Autores e orientador](#18-autores-e-orientador)
+- [19. Licenca](#19-licenca)
 
 ---
 
@@ -115,6 +116,8 @@ O projeto segue uma arquitetura simples, porem mais organizada do que a versao i
   - estado global da aplicacao
 - `data/`
   - dados estaticos do cardapio
+- `imgDasTelas/`
+  - capturas de tela usadas no README
 - `test-utils/`
   - funcoes auxiliares para testes
 - `__tests__/`
@@ -126,9 +129,9 @@ O projeto segue uma arquitetura simples, porem mais organizada do que a versao i
 
 - **Context API** foi usada para centralizar estado global.
 - **AsyncStorage** foi usado para persistencia local do carrinho e do ultimo codigo gerado.
-- autenticacao foi modelada como um mock em memoria para simular um banco local apenas em tempo de execucao.
-- As telas ficaram mais enxutas, delegando logica compartilhada ao contexto.
-- Componentes repetidos foram extraidos para a pasta `components/`.
+- a autenticacao foi modelada como um mock em memoria para simular um banco local apenas em tempo de execucao.
+- as telas ficaram mais enxutas, delegando logica compartilhada ao contexto.
+- componentes repetidos foram extraidos para a pasta `components/`.
 
 ---
 
@@ -156,41 +159,50 @@ O projeto segue uma arquitetura simples, porem mais organizada do que a versao i
 
 ```text
 CantinaOn/
-├── __mocks__/
-│   └── @react-native-async-storage/
-│       └── async-storage.js
-├── __tests__/
-│   ├── App.test.js
-│   ├── AppContext.test.js
-│   ├── CartScreen.test.js
-│   ├── LoginScreen.test.js
-│   ├── MenuScreen.test.js
-│   ├── PickupCodeScreen.test.js
-│   └── RegisterScreen.test.js
-├── components/
-│   ├── ActionButton.js
-│   ├── AuthScreenLayout.js
-│   ├── FormInput.js
-│   ├── LoadingScreen.js
-│   └── ScreenHeader.js
-├── context/
-│   └── AppContext.js
-├── data/
-│   └── menuItems.js
-├── pages/
-│   ├── CartScreen.js
-│   ├── LoginScreen.js
-│   ├── MenuScreen.js
-│   ├── PickupCodeScreen.js
-│   └── RegisterScreen.js
-├── test-utils/
-│   └── renderWithAppProvider.js
-├── assets/
-├── App.js
-├── app.json
-├── index.js
-├── package.json
-└── README.md
+|-- __mocks__/
+|   `-- @react-native-async-storage/
+|       `-- async-storage.js
+|-- __tests__/
+|   |-- App.test.js
+|   |-- AppContext.test.js
+|   |-- CartScreen.test.js
+|   |-- LoginScreen.test.js
+|   |-- MenuScreen.test.js
+|   |-- PickupCodeScreen.test.js
+|   `-- RegisterScreen.test.js
+|-- components/
+|   |-- ActionButton.js
+|   |-- AuthScreenLayout.js
+|   |-- FormInput.js
+|   |-- LoadingScreen.js
+|   `-- ScreenHeader.js
+|-- context/
+|   `-- AppContext.js
+|-- data/
+|   `-- menuItems.js
+|-- imgDasTelas/
+|   |-- img1.jpeg
+|   |-- img2.jpeg
+|   |-- img3.jpeg
+|   |-- img4.jpeg
+|   |-- img5.jpeg
+|   |-- img6.jpeg
+|   |-- img7.jpeg
+|   `-- img8.jpeg
+|-- pages/
+|   |-- CartScreen.js
+|   |-- LoginScreen.js
+|   |-- MenuScreen.js
+|   |-- PickupCodeScreen.js
+|   `-- RegisterScreen.js
+|-- test-utils/
+|   `-- renderWithAppProvider.js
+|-- assets/
+|-- App.js
+|-- app.json
+|-- index.js
+|-- package.json
+`-- README.md
 ```
 
 ---
@@ -211,7 +223,39 @@ O fluxo principal da aplicacao funciona assim:
 
 ---
 
-## 8. Persistencia com AsyncStorage
+## 8. Galeria das telas
+
+As capturas abaixo estao salvas na pasta `imgDasTelas/` e mostram o fluxo principal da aplicacao.
+
+### Login e cadastro
+
+<p align="center">
+  <img src="./imgDasTelas/img2.jpeg" alt="Tela de login" width="230" />
+  <img src="./imgDasTelas/img1.jpeg" alt="Tela de cadastro" width="230" />
+</p>
+
+### Menu e cardapio
+
+<p align="center">
+  <img src="./imgDasTelas/img6.jpeg" alt="Tela inicial do menu com usuario autenticado" width="230" />
+  <img src="./imgDasTelas/img3.jpeg" alt="Tela do cardapio com item pao de batata" width="230" />
+</p>
+
+<p align="center">
+  <img src="./imgDasTelas/img4.jpeg" alt="Tela do cardapio com item cachorro quente" width="230" />
+  <img src="./imgDasTelas/img5.jpeg" alt="Tela do cardapio com item coxinha" width="230" />
+</p>
+
+### Carrinho e codigo de retirada
+
+<p align="center">
+  <img src="./imgDasTelas/img7.jpeg" alt="Tela do carrinho com resumo do pedido" width="230" />
+  <img src="./imgDasTelas/img8.jpeg" alt="Tela do codigo de retirada" width="230" />
+</p>
+
+---
+
+## 9. Persistencia com AsyncStorage
 
 O projeto utiliza **AsyncStorage** para salvar dados localmente no dispositivo.
 
@@ -236,7 +280,7 @@ O projeto utiliza **AsyncStorage** para salvar dados localmente no dispositivo.
 
 ---
 
-## 9. Gerenciamento de estado global com Context API
+## 10. Gerenciamento de estado global com Context API
 
 O estado global da aplicacao foi implementado em `context/AppContext.js`.
 
@@ -273,7 +317,7 @@ Observacao importante:
 
 ---
 
-## 10. Validacao de formularios
+## 11. Validacao de formularios
 
 As telas de login e cadastro agora possuem validacao visual de formularios.
 
@@ -299,7 +343,7 @@ Essa validacao melhora a experiencia do usuario e evita chamadas desnecessarias 
 
 ---
 
-## 11. Testes automatizados
+## 12. Testes automatizados
 
 O projeto possui uma camada de testes automatizados com **Jest** e **React Native Testing Library**.
 
@@ -341,7 +385,7 @@ Resultado validado:
 
 ---
 
-## 12. Conceito adicional aplicado no projeto
+## 13. Conceito adicional aplicado no projeto
 
 Um conceito que nao foi trabalhado em aula, mas que o grupo quis aplicar, foi o de **testes automatizados**.
 
@@ -359,7 +403,7 @@ Mesmo nao sendo um topico exigido em aula, optamos por implementar testes porque
 
 ---
 
-## 13. Como executar o projeto
+## 14. Como executar o projeto
 
 ### Pre-requisitos
 
@@ -390,7 +434,7 @@ Depois disso, voce pode:
 
 ---
 
-## 14. Scripts disponiveis
+## 15. Scripts disponiveis
 
 ```bash
 npm run start
@@ -410,7 +454,7 @@ npm run test
 
 ---
 
-## 15. Limitacoes atuais
+## 16. Limitacoes atuais
 
 Apesar das melhorias, o projeto ainda possui limitacoes importantes:
 
@@ -426,7 +470,7 @@ Essas limitacoes sao aceitaveis para o escopo academico atual, mas seriam pontos
 
 ---
 
-## 16. Melhorias futuras
+## 17. Melhorias futuras
 
 - integracao com backend real
 - hash de senha e autenticacao segura
@@ -441,7 +485,7 @@ Essas limitacoes sao aceitaveis para o escopo academico atual, mas seriam pontos
 
 ---
 
-## 17. Autores e orientador
+## 18. Autores e orientador
 
 **Autores:**
 
@@ -456,7 +500,7 @@ Essas limitacoes sao aceitaveis para o escopo academico atual, mas seriam pontos
 
 ---
 
-## 18. Licenca
+## 19. Licenca
 
 Este projeto possui finalidade **exclusivamente academica**.
 
