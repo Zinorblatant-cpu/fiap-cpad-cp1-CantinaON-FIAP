@@ -227,6 +227,9 @@ O fluxo principal da aplicacao funciona assim:
 
 As capturas abaixo estao salvas na pasta `imgDasTelas/` e mostram o fluxo principal da aplicacao.
 
+### Gif do APP
+<img src="./imgDasTelas/img1.gif" alt="Tela de login" width="230" />
+
 ### Login e cadastro
 
 <p align="center">
